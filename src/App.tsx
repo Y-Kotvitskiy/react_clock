@@ -31,7 +31,7 @@ export class App extends React.Component {
     return (
       <div className="App">
         <h1>React clock</h1>
-        {this.state.hasClock ? <Clock /> : null};
+        {this.state.hasClock ? <Clock today={new Date().getTime()} /> : null}
       </div>
     );
   }

@@ -1,9 +1,10 @@
 import React from 'react';
 
-export class Clock extends React.Component {
+export class Clock extends React.Component<{ today: number }> {
   state = {
     clockName: 'Clock-0',
     clockValue: '',
+    clockTimeInterval: 0,
   };
 
   timerNameId: number = 0;
@@ -24,11 +25,13 @@ export class Clock extends React.Component {
     }, 3300);
 
     this.timerValueId = window.setInterval(() => {
-      const clockValue = new Date().toUTCString().toString().slice(-12, -4);
+      const date = new Date(this.props.today + this.state.clockTimeInterval);
+      const clockValue = date.toUTCString().toString().slice(-12, -4);
+      const clockTimeInterval = this.state.clockTimeInterval + 1000;
 
       // eslint-disable-next-line no-console
       console.log(clockValue);
-      this.setState({ clockValue });
+      this.setState({ clockValue, clockTimeInterval });
     }, 1000);
   }
 
@@ -51,16 +54,12 @@ export class Clock extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>React clock</h1>
+      <div className="Clock">
+        <strong className="Clock__name">{this.state.clockName}</strong>
 
-        <div className="Clock">
-          <strong className="Clock__name">{this.state.clockName}</strong>
+        {' time is '}
 
-          {' time is '}
-
-          <span className="Clock__time">{this.state.clockValue}</span>
-        </div>
+        <span className="Clock__time">{this.state.clockValue}</span>
       </div>
     );
   }
