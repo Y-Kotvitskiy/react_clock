@@ -40,7 +40,7 @@ export class App extends React.Component {
   componentWillUnmount(): void {
     window.clearInterval(this.timerNameId);
     removeEventListener('click', this.handleClick);
-    removeEventListener('click', this.handleClick);
+    removeEventListener('contextmenu', this.handleContextMenu);
   }
 
   render() {
